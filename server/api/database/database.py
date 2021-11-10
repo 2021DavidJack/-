@@ -7,3 +7,6 @@ db=conn.cursor()
 
 def upupdatePersonalHealthData(UserExtend,User,HealthData):
 	return True;
+
+def updateSleepData(UserExtend,User,SleepData):
+	return True;

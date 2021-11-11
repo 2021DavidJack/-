@@ -1,4 +1,4 @@
-from flask import Flask,redirect,url_for,request
+from flask import Flask, redirect, url_for, request
 from flask_cors import *
 from api.database import database
 app = Flask(__name__)
@@ -11,15 +11,13 @@ def updatePersonalHealthData():
 		UserExtend = request.form['UserExtend']
 		User = request.form['User']
 		HealthData = request.form['HealthData']
-		result=database.updatePersonalHealthData(UserExtend, User, HealthData)
+		result = database.updatePersonalHealthData(UserExtend, User, HealthData)
 		if result:
-			print("login success!")
-			return {'errcode': 0, 'errmsg':'修改成功'}, 200
+			return {'errcode': 0, 'errmsg': '修改成功'}, 200
 		else:
-			print("login failed!")
-			return {'errcode': 400, 'errmsg':'用户不存在或未知错误'}, 400
+			return {'errcode': 400, 'errmsg': '用户不存在或未知错误'}, 400
 	else:
-		return {'errcode': 400, 'errmsg':'请求类型错误'}, 400
+		return {'errcode': 400, 'errmsg': '请求类型错误'}, 400
 
 @app.route('/api/user/extend/updateSleepData', methods=['POST'])
 def updateSleepData():
@@ -29,13 +27,11 @@ def updateSleepData():
 		SleepData = request.form['SleepData']
 		result = database.updateSleepData(UserExtend, User, SleepData)
 		if result:
-			print("login success!")
-			return {'errcode': 0, 'errmsg':'修改成功'}, 200
+			return {'errcode': 0, 'errmsg': '修改成功'}, 200
 		else:
-			print("login failed!")
-			return {'errcode': 400, 'errmsg':'用户不存在或未知错误'}, 400
+			return {'errcode': 400, 'errmsg': '用户不存在或未知错误'}, 400
 	else:
-		return {'errcode': 400, 'errmsg':'请求类型错误'}, 400
+		return {'errcode': 400, 'errmsg': '请求类型错误'}, 400
 
 @app.route('/api/user/extend/deletePersonalHealthData', methods=['POST'])
 def deletePersonalHealthData():
@@ -45,29 +41,25 @@ def deletePersonalHealthData():
 		HealthData = request.form['HealthData']
 		result = database.deletePersonalHealthData(UserExtend, User, HealthData)
 		if result:
-			print("login success!")
-			return {'errcode': 0, 'errmsg':'删除成功'}, 200
+			return {'errcode': 0, 'errmsg': '删除成功'}, 200
 		else:
-			print("login failed!")
-			return {'errcode': 400, 'errmsg':'用户不存在或未知错误'}, 400
+			return {'errcode': 400, 'errmsg': '用户不存在或未知错误'}, 400
 	else:
-		return {'errcode': 400,'errmsg':'请求类型错误'}, 400
+		return {'errcode': 400, 'errmsg': '请求类型错误'}, 400
 
 @app.route('/api/user/extend/deleteSleepData', methods=['POST'])
 def deleteSleepData():
-	if request.headers['Content-Type']=="multipart/form-data":
+	if request.headers['Content-Type'] == "multipart/form-data":
 		UserExtend = request.form['UserExtend']
 		User = request.form['User']
 		SleepData = request.form['SleepData']
 		result = database.deleteSleepData(UserExtend, User, SleepData)
 		if result:
-			print("login success!")
-			return {'errcode': 0, 'errmsg':'删除成功'}, 200
+			return {'errcode': 0, 'errmsg': '删除成功'}, 200
 		else:
-			print("login failed!")
-			return {'errcode': 400, 'errmsg':'用户不存在或未知错误'}, 400
+			return {'errcode': 400, 'errmsg': '用户不存在或未知错误'}, 400
 	else:
-		return {'errcode': 400, 'errmsg':'请求类型错误'}, 400
+		return {'errcode': 400, 'errmsg': '请求类型错误'}, 400
 
 @app.route('/api/user/extend/timeSensitiveReminder', methods=['POST'])
 def timeSensitiveReminder():
@@ -77,13 +69,11 @@ def timeSensitiveReminder():
 		Reminder = request.form['Reminder']
 		result = database.timeSensitiveReminder(UserExtend, User, Reminder)
 		if result:
-			print("login success!")
-			return {'errcode': 0, 'errmsg':'删除成功'}, 200
+			return {'errcode': 0, 'errmsg': '删除成功'}, 200
 		else:
-			print("login failed!")
-			return {'errcode': 400, 'errmsg':'用户不存在或未知错误'}, 400
+			return {'errcode': 400, 'errmsg': '用户不存在或未知错误'}, 400
 	else:
-		return {'errcode': 400, 'errmsg':'请求类型错误'}, 400
+		return {'errcode': 400, 'errmsg': '请求类型错误'}, 400
 
 @app.route('/api/user/extend/collectSleepData',methods=['POST'])
 def collectSleepData():
@@ -93,10 +83,22 @@ def collectSleepData():
 		SleepData = request.form['SleepData']
 		result = database.collectSleepData(UserExtend, User, SleepData)
 		if result:
-			print("login success!")
-			return {'errcode': 0, 'errmsg':'录入成功'}, 200
+			return {'errcode': 0, 'errmsg': '录入成功'}, 200
 		else:
-			print("login failed!")
+			return {'errcode': 400, 'errmsg': '用户不存在或未知错误'}, 400
+	else:
+		return {'errcode': 400, 'errmsg': '请求类型错误'}, 400
+
+@app.route('/api/user/extend/getSleepData',methods=['POST'])
+def getSleepData():
+	if request.headers['Content-Type'] == "multipart/form-data":
+		UserExtend = request.form['UserExtend']
+		User = request.form['User']
+		SleepData = request.form['SleepData']
+		result = database.getSleepData(UserExtend, User, SleepData)
+		if result:
+			return {'SleepData': result, 'errmsg': '录入成功'}, 200
+		else:
 			return {'errcode': 400, 'errmsg': '用户不存在或未知错误'}, 400
 	else:
 		return {'errcode': 400, 'errmsg': '请求类型错误'}, 400

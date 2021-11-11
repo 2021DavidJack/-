@@ -1,6 +1,6 @@
-from flask import Blueprint, Flask, request
+from flask import request
 from ..database import database
-extend = Blueprint('extend', __name__)
+from . import extend
 
 
 @extend.route('/api/user/extend/<string:uri>', methods=['POST'])

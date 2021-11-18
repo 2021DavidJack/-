@@ -10,5 +10,24 @@ CREATE TABLE `user`(
     `email` varchar(50) NOT NULL,
     `name` varchar(15) default NULL,
     `reg_time` int(11) NOT NULL default 0,
-    `last_login_time` int(11) NOT NULL default 0
+    `last_login_time` int(11) NOT NULL default 0,
+    PRIMARY KEY (`uid`)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
+
+CREATE TABLE `HealthData`(
+    `uid` int(10) NOT NULL,
+    `height` int(10) ,
+    `weight` int(10) ,
+    `age` int(10) ,
+    `male` tinyint(2),
+    PRIMARY KEY (`uid`),
+    FOREIGN KEY(uid) REFERENCES user(uid)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
+
+CREATE TABLE `SleepData`(
+    `uid` int(10) NOT NULL,
+    `date` DATETIME NOT NULL ,
+    `sleepDuration` int(10) ,
+    PRIMARY KEY (`uid`,`date`),
+    FOREIGN KEY(uid) REFERENCES user(uid)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
